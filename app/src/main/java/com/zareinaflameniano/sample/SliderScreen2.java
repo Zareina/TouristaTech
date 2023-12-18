@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.Button;
 
 public class SliderScreen2 extends AppCompatActivity {
-
     Button backButton, nextButton, skipButton;
 
     @Override

@@ -38,5 +38,5 @@ public class BookingActivity extends AppCompatActivity {
             tvLocation.setText(accLocation);
             tvDescription.setText(accImage);
         }
-        }
+    }
 }

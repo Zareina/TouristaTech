@@ -7,8 +7,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-public class GetStarted extends AppCompatActivity {
+import com.zareinaflameniano.sample.ui.home.HomeFragment;
 
+public class GetStarted extends AppCompatActivity {
     Button startButton;
 
     @Override

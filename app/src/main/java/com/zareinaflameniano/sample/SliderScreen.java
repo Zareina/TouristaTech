@@ -16,6 +16,7 @@ public class SliderScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_slider_screen);
 
+
         nextButton = findViewById(R.id.nextButton);
         skipButton = findViewById(R.id.skipButton);
 

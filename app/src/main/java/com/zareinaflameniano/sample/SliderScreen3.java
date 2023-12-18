@@ -31,7 +31,7 @@ public class SliderScreen3 extends AppCompatActivity {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(SliderScreen3.this, SliderScreen2.class);
+                Intent intent = new Intent(SliderScreen3.this, GetStarted.class);
                 startActivity(intent);
             }
         });
@@ -43,5 +43,4 @@ public class SliderScreen3 extends AppCompatActivity {
                 startActivity(i);
             }
         });
-    }
-}
+    }}

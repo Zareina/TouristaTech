@@ -19,13 +19,13 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class LogInActivity extends AppCompatActivity {
-
     FirebaseAuth mAuth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_log_in);
-
+        TextView Forgot = findViewById(R.id.tvForgot);
+        TextView Register = findViewById(R.id.tvRegister);
         EditText Username = findViewById(R.id.ptUsername);
         EditText Password = findViewById(R.id.ptPass);
         Button btnLogin = findViewById(R.id.btnLogin);
@@ -56,7 +56,7 @@ public class LogInActivity extends AppCompatActivity {
                                     if (task.isSuccessful()) {
                                         Toast.makeText(LogInActivity.this, "User has successfully logged in!", Toast.LENGTH_LONG).show();
                                         Bar.setVisibility(View.GONE);
-                                        startActivity(new Intent(LogInActivity.this, SliderScreen.class));
+                                        startActivity(new Intent(LogInActivity.this, MainActivity.class));
                                     } else {
                                         Toast.makeText(LogInActivity.this, "User failed to log in", Toast.LENGTH_LONG).show();
                                         Bar.setVisibility(View.GONE);

@@ -18,6 +18,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class SignUpActivity extends AppCompatActivity {
+
     private FirebaseAuth mAuth;
     ProgressBar bar;
 
@@ -65,6 +66,7 @@ public class SignUpActivity extends AppCompatActivity {
                     ptPhone.setError("Please enter your mobile number");
                     ptPhone.requestFocus();
                 } else {
+                    // All fields are valid, proceed with account creation
                     bar.setVisibility(View.VISIBLE);
                     mAuth.createUserWithEmailAndPassword(Email, Password)
                             .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -81,7 +83,7 @@ public class SignUpActivity extends AppCompatActivity {
                                                         if (task.isSuccessful()) {
                                                             Toast.makeText(SignUpActivity.this, "User Registration Successfully!", Toast.LENGTH_LONG).show();
                                                             bar.setVisibility(View.GONE);
-                                                            startActivity(new Intent(SignUpActivity.this, LogInActivity.class));
+                                                            startActivity(new Intent(SignUpActivity.this, SliderScreen.class));
                                                         } else {
                                                             Toast.makeText(SignUpActivity.this, "User Failed to Register", Toast.LENGTH_LONG).show();
                                                             bar.setVisibility(View.GONE);
