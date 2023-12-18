@@ -37,19 +37,21 @@ public class WishlistFragment extends Fragment {
         rvWishlist = root.findViewById(R.id.rvWishlist);
         btEdit = root.findViewById(R.id.btEdit);
 
-        DatabaseHelper db = new DatabaseHelper(root.getContext());
+        DatabaseHelper db = new DatabaseHelper(requireContext());
 
         btEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                customAdapter.setEditMode(!customAdapter.isEditMode());
+                if (customAdapter != null) {
+                    customAdapter.setEditMode(!customAdapter.isEditMode());
+                }
             }
         });
 
         List<FavoritesModel> wishList = db.getAllFavorites();
-        customAdapter = new WishlistAdapter(wishList, root.getContext());
+        customAdapter = new WishlistAdapter(wishList, requireContext());
 
-        rvWishlist.setLayoutManager(new GridLayoutManager(getContext(), 2));
+        rvWishlist.setLayoutManager(new GridLayoutManager(requireContext(), 2));
         rvWishlist.setAdapter(customAdapter);
 
         return root;
