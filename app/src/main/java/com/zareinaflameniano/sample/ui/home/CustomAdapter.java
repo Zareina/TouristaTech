@@ -110,7 +110,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
         // contents of the view with that element
         viewHolder.getTitle().setText(localDataSet.get(position).accName);
         viewHolder.getSubtitle().setText(localDataSet.get(position).accLocation);
-        int img = context.getResources().getIdentifier(localDataSet.get(position).accImage, "drawable", "com.zareinaflameniano.drawer");
+        int img = context.getResources().getIdentifier(localDataSet.get(position).accImage, "drawable", "com.zareinaflameniano.sample");
         viewHolder.getHeaderImage().setImageResource(img);
         viewHolder.getCardView().setOnClickListener(new View.OnClickListener() {
             @Override

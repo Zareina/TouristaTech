@@ -5,10 +5,46 @@
     <string name="title_notifications">Notifications</string>
     <string name="homeText">Where to?</string>
     <string name="queryhint">Find a place to stay...</string>
-    <string name="book">Book</string>
     <string name="explore">Explore</string>
     <string name="wishlist">Wishlists</string>
     <string name="edit">Edit</string>
+    <string name="book">Book</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="tvTitle">Tourista Tech</string>
+    <string name="tvTagLine">High Tech Adventures at your Fingertips!</string>
+    <string name="btnSignUp">Sign Up</string>
+    <string name="btnLogIn">Log In</string>
+    <string name="tvPolicy">By continuing, you agree to our updated
+        <u>Terms and Conditions and Privacy Policy.</u></string>
+    <string name="tvTell">Tell us more about you so we can give you
+ a better travel experience</string>
+    <string name="tvUser">User Details</string>
+    <string name="tvDetails">Login and Contact Details</string>
+    <string name="ptFirst">First Name</string>
+    <string name="ptLast">Last Name</string>
+    <string name="ptEmail">Email</string>
+    <string name="tEmail">Enter Email</string>
+    <string name="ptPass">Password </string>
+    <string name="ptConfirm">Confirm Password</string>
+    <string name="btnCreate">Create Account</string>
+    <string name="ptPhone">Mobile Number</string>
+    <string name="ptUsername">Email Address</string>
+    <string name="tvForgot"><u>Forgot Password?</u></string>
+    <string name="btnReset">Reset Password</string>
+    <string name="tvRegister">Don’t have an account?  <b><u>Create Account</u></b></string>
+    <string name="tvAgree">By logging in I agree the Tourista Tech
+        <u>Terms and Conditions and Privacy Policy</u></string>
+    <string name="tvDescription">Start your travel adventure with Tourista Tech!</string>
+    <string name="slideDesc">"Explore Beyond Boundaries, Your Journey, Our Expertise."</string>
+    <string name="tvWelcome">Welcome to\n Tourista Tech!</string>
+    <string name="btnSkip">Skip</string>
+    <string name="btnNext">Next</string>
+    <string name="btnBack">Back</string>
+    <string name="tvDescription1">Ready to create memories that last a lifetime? Start your journey with us as we unlock the wonders of travel and technology, seamlessly blending tradition and innovation.</string>
+    <string name="tvTech">Tech-Driven Convenience at Your Fingertips</string>
+    <string name="tvDescription2">Enjoy a hassle-free travel experience with our user-friendly online booking system, cutting-edge technology, and a genuine love for local heritage.</string>
+    <string name="tvService">Personalized Service, Every Step of the Way</string>
+    <string name="tvDescription3">At Tourista Tech, your happiness matters most. Our dedicated customer service team is here to assist you at every step, ensuring a smooth and enjoyable travel experience across the enchanting regions of Pangasinan.</string>
+    <string name="btnGetStarted">Get Started</string>
 </resources>

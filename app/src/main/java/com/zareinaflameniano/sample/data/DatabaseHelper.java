@@ -262,10 +262,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
-    private void removeFavorite(int accID) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        db.delete("tblFavorites", "favID = ?", new String[]{String.valueOf(accID)});
-    }
 
     private void addFavoriteFromAccommodation(int accID) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -349,6 +345,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         return data;
 
+    }
+    public void removeFavorite(int favID) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete("tblFavorites", "favID = ?", new String[]{String.valueOf(favID)});
     }
 
 }

@@ -43,13 +43,34 @@ public class WishlistFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (customAdapter != null) {
-                    customAdapter.setEditMode(!customAdapter.isEditMode());
+                    if (customAdapter.isEditMode()) {
+                        // Handle "Done" button click
+                        customAdapter.setEditMode(false);
+                        btEdit.setText("Edit");
+                    } else {
+                        // Handle "Edit" button click
+                        customAdapter.setEditMode(true);
+                        btEdit.setText("Done");
+                    }
                 }
             }
         });
 
         List<FavoritesModel> wishList = db.getAllFavorites();
         customAdapter = new WishlistAdapter(wishList, requireContext());
+
+        // Set the click listener for the delete button in the adapter
+        customAdapter.setOnDeleteClickListener(new WishlistAdapter.OnDeleteClickListener() {
+            @Override
+            public void onDeleteClick(int position) {
+                // Handle delete button click
+                FavoritesModel deletedItem = customAdapter.getLocalDataSet().get(position);
+                // Remove the item from tblFavorites
+                db.removeFavorite(deletedItem.favID);
+                // Remove the item from the adapter
+                customAdapter.deleteFavorite(position);
+            }
+        });
 
         rvWishlist.setLayoutManager(new GridLayoutManager(requireContext(), 2));
         rvWishlist.setAdapter(customAdapter);
