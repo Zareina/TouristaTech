@@ -125,9 +125,9 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
             }
         });
         if(localDataSet.get(position).accFavorite == 0){
-            viewHolder.getBtnFave().setBackgroundTintList(ColorStateList.valueOf(Color.WHITE));
-        }else{
             viewHolder.getBtnFave().setBackgroundTintList(ColorStateList.valueOf(Color.BLUE));
+        }else{
+            viewHolder.getBtnFave().setBackgroundTintList(ColorStateList.valueOf(Color.RED));
         }
 
     }

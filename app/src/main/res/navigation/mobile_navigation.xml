@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/navigation_home"
         android:name="com.zareinaflameniano.sample.ui.home.HomeFragment"
-        android:label="@string/title_home"
+        android:label="@string/title_explore"
         tools:layout="@layout/fragment_home" />
 
     <fragment
@@ -20,11 +20,11 @@
     <fragment
         android:id="@+id/navigation_notifications"
         android:name="com.zareinaflameniano.sample.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
+        android:label="@string/title_settings"
         tools:layout="@layout/fragment_notifications" />
     <fragment
         android:id="@+id/navigation_booking"
         android:name="com.zareinaflameniano.sample.ui.home.BookingFragment"
-        android:label="@string/title_notifications"
+        android:label="Booking"
         tools:layout="@layout/fragment_booking" />
 </navigation>

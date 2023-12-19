@@ -24,7 +24,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     //Don't forget to put your namespace
     private static String DB_PATH = "/data/data/com.zareinaflameniano.myapplication/databases/";
 
-    private static String DB_NAME = "TouristaTech.db";
+    private static String DB_NAME = "Database.db";
 
     private SQLiteDatabase myDatabase;
 
