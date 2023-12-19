@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "319170846684",
+    "project_id": "tourista-tech-ba180",
+    "storage_bucket": "tourista-tech-ba180.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:319170846684:android:5b714ef021086bd8bcb919",
+        "android_client_info": {
+          "package_name": "com.zareinaflameniano.sample"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA3kNdit3a-ZrO1keCGRX7db4oLQ5S7IWA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
