@@ -11,13 +11,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:adjustViewBounds="true"
+        android:src="@drawable/logo"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.238"
-        app:srcCompat="@drawable/logo" />
+        app:layout_constraintVertical_bias="0.192" />
 
     <Button
         android:id="@+id/btnSignUp"
@@ -26,7 +26,9 @@
         android:backgroundTint="#3F51B5"
         android:fontFamily="@font/roboto_medium"
         android:text="@string/btnSignUp"
+        android:textColor="#FFFFFF"
         android:textSize="24sp"
+        app:cornerRadius="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
@@ -42,6 +44,8 @@
         android:fontFamily="@font/roboto_medium"
         android:text="@string/btnLogIn"
         android:textSize="24sp"
+        app:cornerRadius="20dp"
+        android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
