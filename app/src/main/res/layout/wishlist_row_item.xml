@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/cardView"
     android:layout_width="150dp"
-    android:layout_height="150dp"
+    android:layout_height="160dp"
     android:layout_gravity="center|top"
     android:layout_marginBottom="10dp"
     android:layout_margin="5dp"
@@ -36,16 +36,16 @@
                 android:id="@+id/btDelete"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:layout_marginTop="3dp"
-                android:src="@drawable/close" />
-
+                android:background="#00AF7A7A"
+                android:scaleType="center"
+                android:src="@drawable/delete" />
 
         </FrameLayout>
 
         <TextView
             android:id="@+id/favName"
             android:layout_width="match_parent"
-            android:layout_height="20dp"
+            android:layout_height="wrap_content"
             android:layout_margin="4dp"
             android:fontFamily="@font/inter_bold"
             android:text="TextView" />

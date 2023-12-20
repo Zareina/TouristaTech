@@ -1,21 +1,18 @@
 package com.zareinaflameniano.sample;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-
-
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.TextView;
-
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.snackbar.Snackbar;
-
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -27,10 +24,19 @@ public class BookingActivity extends AppCompatActivity {
     private long selectedCheckOutDate = 0;
     private ImageView tvImage;
     private TextView tvName;
-    private  TextView tvLocation;
+    private TextView tvLocation;
     private TextView tvDescription;
-    private  TextView tvPrice;
-    private double accPrice;
+    private TextView tvPrice;
+    private Button btBook;
+    private Button btCheckin;
+    private Button btCheckout;
+    private Button btDetails;
+    private int accPrice;
+    private boolean isReservationCancelled;
+
+    private static final String PREF_NAME = "BookingPreferences";
+    private static final String KEY_RESERVATION_CANCELLED = "isReservationCancelled";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,16 +47,14 @@ public class BookingActivity extends AppCompatActivity {
             String accName = intent.getStringExtra("accName");
             String accLocation = intent.getStringExtra("accLocation");
             String accImage = intent.getStringExtra("accImage");
-            accPrice = Double.parseDouble(intent.getStringExtra("accPrice"));
+            accPrice = Integer.parseInt(intent.getStringExtra("accPrice"));
             String accDescription = intent.getStringExtra("accDescription");
-
 
             tvImage = findViewById(R.id.tvImage);
             tvName = findViewById(R.id.tvName);
             tvLocation = findViewById(R.id.tvLocation);
-            tvDescription= findViewById(R.id.tvDescription);
+            tvDescription = findViewById(R.id.tvDescription);
             tvPrice = findViewById(R.id.tvPrice);
-
 
             int imageResourceId = getResources().getIdentifier(accImage, "drawable", getPackageName());
             if (imageResourceId != 0) {
@@ -61,15 +65,38 @@ public class BookingActivity extends AppCompatActivity {
             tvName.setText(accName);
             tvLocation.setText(accLocation);
             tvDescription.setText(accDescription);
-            tvPrice.setText("Price: "+ accPrice);
-
-            intent.putExtra("accImage", accImage);
-            intent.putExtra("accName", accName);
-            intent.putExtra("accLocation", accLocation);
+            tvPrice.setText("PHP " + accPrice);
         }
 
-        Button btDetails = findViewById(R.id.btDetails);
-        Button btCheckin = findViewById(R.id.btCheckin);
+        btBook = findViewById(R.id.btBook);
+        btCheckin = findViewById(R.id.btCheckin);
+        btCheckout = findViewById(R.id.btCheckout);
+        btDetails = findViewById(R.id.btDetails);
+
+        isReservationCancelled = getReservationState();
+
+        // Initial setup of button visibility based on reservation state
+        if (isReservationCancelled) {
+            showBookButton();
+        } else {
+            hideCheckinCheckoutButtons();
+        }
+
+        btBook.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (isReservationCancelled) {
+                    showCheckinCheckoutButtons();
+                    isReservationCancelled = false;
+                    saveReservationState(isReservationCancelled);
+                } else {
+                    hideCheckinCheckoutButtons();
+                    isReservationCancelled = true;
+                    saveReservationState(isReservationCancelled);
+                }
+            }
+        });
+
         btCheckin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -77,39 +104,124 @@ public class BookingActivity extends AppCompatActivity {
             }
         });
 
-        Button btCheckout = findViewById(R.id.btCheckout);
         btCheckout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showCheckOutDatePicker();
-            }
-        });
-
-        Button btBook = findViewById(R.id.btBook);
-        btBook.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                btDetails.setVisibility(View.VISIBLE);
-                if (selectedCheckInDate > 0 && selectedCheckOutDate > 0) {
-                    btDetails.setVisibility(View.VISIBLE);
-                    updateReservationText();
-                    btBook.setText("Booked");
+                if (selectedCheckInDate > 0) {
+                    showCheckOutDatePicker();
+                    if (selectedCheckOutDate > 0) {
+                        showReservationAlertDialog();
+                    } else {
+                        showSnackbar("Please select check-out date");
+                    }
                 } else {
-                    // Show an alert message if no date is picked
-                    showSnackbar("Please select check-in and check-out dates.");
+                    showSnackbar("Please select check-in date");
                 }
             }
         });
 
+
         btDetails.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (!isReservationCancelled && selectedCheckInDate > 0 && selectedCheckOutDate > 0) {
+                    updateReservationText();
+                } else {
+                    showSnackbar("Please complete the reservation details first.");
+                }
             }
         });
 
+        // Set initial visibility of btDetails based on reservation state
+        if (isReservationCancelled || selectedCheckInDate == 0 || selectedCheckOutDate == 0) {
+            btDetails.setVisibility(View.GONE);
+        } else {
+            btDetails.setVisibility(View.VISIBLE);
+        }
+    }
+    private void showReservationAlertDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Reservation Complete")
+                .setMessage("Reservation complete")
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        showCancelReservationButton();
+                    }
+                });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
+    private void updateReservationText() {
+        if (selectedCheckInDate > 0 && selectedCheckOutDate > 0) {
+            int numberOfDays = getNumberOfDays();
+            double amountDue = numberOfDays * accPrice;
+            String reservationMessage = "Reservation settled\nCheck-in: " +
+                    getFormattedDate(selectedCheckInDate) +
+                    "\nCheck-out: " + getFormattedDate(selectedCheckOutDate) +
+                    "\nNumber of days: " + numberOfDays + " days" +
+                    "\nAmount Due: " + amountDue;
 
+            // Display the reservation details
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("Reservation Details")
+                    .setMessage(reservationMessage)
+                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+
+            AlertDialog dialog = builder.create();
+            dialog.show();
+
+            showCancelReservationButton();
+        }
+    }
+
+    private void showCheckinCheckoutButtons() {
+        btCheckin.setVisibility(View.VISIBLE);
+        btCheckout.setVisibility(View.VISIBLE);
+        btBook.setVisibility(View.GONE);
+    }
+
+    private void hideCheckinCheckoutButtons() {
+        btCheckin.setVisibility(View.GONE);
+        btCheckout.setVisibility(View.GONE);
+        btBook.setVisibility(View.VISIBLE);
+        btBook.setText("MAKE A RESERVATION");
+    }
+
+    private void showBookButton() {
+        btBook.setVisibility(View.VISIBLE);
+        btCheckin.setVisibility(View.GONE);
+        btCheckout.setVisibility(View.GONE);
+        btBook.setText("MAKE A RESERVATION");
+    }
+
+    private void showCancelReservationButton() {
+        btBook.setVisibility(View.VISIBLE);
+        btCheckin.setVisibility(View.GONE);
+        btCheckout.setVisibility(View.GONE);
+        btDetails.setVisibility(View.VISIBLE);
+        btBook.setText("CANCEL RESERVATION");
+    }
+
+    private void saveReservationState(boolean isCancelled) {
+        SharedPreferences preferences = getSharedPreferences(PREF_NAME, MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putBoolean(KEY_RESERVATION_CANCELLED, isCancelled);
+        editor.apply();
+    }
+
+    private boolean getReservationState() {
+        SharedPreferences preferences = getSharedPreferences(PREF_NAME, MODE_PRIVATE);
+        return preferences.getBoolean(KEY_RESERVATION_CANCELLED, false);
+    }
 
     private void showCheckInDatePicker() {
         Calendar calendar = Calendar.getInstance();
@@ -127,15 +239,14 @@ public class BookingActivity extends AppCompatActivity {
                         selectedCheckInDate = selectedCalendar.getTimeInMillis();
                         String checkInMessage = "Check-in date selected: " + getFormattedDate(selectedCheckInDate);
                         showSnackbar(checkInMessage);
-
                     }
                 }, year, month, dayOfMonth);
 
-        // Set the minimum date to today
         datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
 
         datePickerDialog.show();
     }
+
     private void showCheckOutDatePicker() {
         Calendar calendar = Calendar.getInstance();
         int year = calendar.get(Calendar.YEAR);
@@ -161,34 +272,15 @@ public class BookingActivity extends AppCompatActivity {
 
         datePickerDialog.show();
     }
-    private void updateReservationText() {
-        if (selectedCheckInDate > 0 && selectedCheckOutDate > 0) {
-            int numberOfDays = getNumberOfDays();
-            double amountDue = numberOfDays * accPrice;  // Use accPrice for computation
-            String reservationMessage = "Reservation settled\nCheck-in: " +
-                    getFormattedDate(selectedCheckInDate) +
-                    "\nCheck-out: " + getFormattedDate(selectedCheckOutDate) +
-                    "\nNumber of days: " + numberOfDays + " days" +
-                    "\nAmount Due: " + amountDue;  // Include amount due in the message
-            showReservationAlertDialog(reservationMessage);
-        }
+
+    private void showSnackbar(String message) {
+        Snackbar.make(findViewById(android.R.id.content), message, Snackbar.LENGTH_SHORT).show();
     }
 
-    private void showReservationAlertDialog(String reservationMessage) {
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Reservation Details")
-                .setMessage(reservationMessage)  // Fix here: use reservationMessage instead of message
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.dismiss();
-                    }
-                });
-
-        AlertDialog dialog = builder.create();
-        dialog.show();
+    private String getFormattedDate(long timestamp) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MMM. dd, yyyy", Locale.getDefault());
+        return dateFormat.format(new Date(timestamp));
     }
-
 
     private int getNumberOfDays() {
         if (selectedCheckInDate > 0 && selectedCheckOutDate > 0) {
@@ -200,15 +292,9 @@ public class BookingActivity extends AppCompatActivity {
         }
     }
 
-    private void showSnackbar(String message) {
-        Snackbar.make(findViewById(android.R.id.content), message, Snackbar.LENGTH_SHORT).show();
+    private boolean doesReservationOverlap(long checkInDate, long checkOutDate) {
+        // Logic to check if the selected dates overlap with existing reservations
+        // You can implement this based on your specific requirements
+        return false;
     }
-
-    private String getFormattedDate(long timestamp) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("MMM. dd, yyyy", Locale.getDefault());
-        return dateFormat.format(new Date(timestamp));
-    }
-
-
 }
-
