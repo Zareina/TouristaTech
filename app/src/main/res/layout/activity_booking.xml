@@ -14,7 +14,8 @@
         <ImageView
             android:id="@+id/tvImage"
             android:layout_width="match_parent"
-            android:layout_height="300dp" />
+            android:layout_height="300dp"
+            android:scaleType="centerCrop" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -25,34 +26,85 @@
             <TextView
                 android:id="@+id/tvName"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="2dp"
                 android:text="TextView"
-                android:textSize="32sp" />
+                android:textSize="26sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tvLocation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="2dp"
                 android:text="TextView"
-                android:textSize="18sp" />
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tvPrice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="3dp"
+                android:text="TextView"
+                android:textColor="#3949AB"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tvDescription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
                 android:text="TextView"
-                android:textSize="18sp" />
+                android:textSize="14sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btCheckin"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="#3949AB"
+                    android:text="@string/checkin" />
+
+                <Button
+                    android:id="@+id/btCheckout"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:backgroundTint="#3949AB"
+                    android:text="@string/checkout" />
+            </LinearLayout>
 
             <Button
                 android:id="@+id/btBook"
-                android:layout_width="100dp"
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="200dp"
+                android:layout_marginTop="50dp"
+                android:layout_marginBottom="8dp"
                 android:backgroundTint="#3949AB"
                 android:text="@string/book"
                 android:textSize="12sp" />
+
+            <Button
+                android:id="@+id/btDetails"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@android:color/transparent"
+                android:text="See Details"
+                android:textColor="#C80F0F"
+                android:visibility="invisible" />
+
         </LinearLayout>
+
 
     </LinearLayout>
 </FrameLayout>

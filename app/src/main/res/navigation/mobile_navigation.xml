@@ -22,9 +22,4 @@
         android:name="com.zareinaflameniano.sample.ui.settings.SettingsFragment"
         android:label="@string/title_settings"
         tools:layout="@layout/fragment_settings" />
-    <fragment
-        android:id="@+id/navigation_booking"
-        android:name="com.zareinaflameniano.sample.ui.home.BookingFragment"
-        android:label="Booking"
-        tools:layout="@layout/fragment_booking" />
 </navigation>

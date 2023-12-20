@@ -22,7 +22,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     //The Android's default system path of your application database.
     //Don't forget to put your namespace
-    private static String DB_PATH = "/data/data/com.zareinaflameniano.myapplication/databases/";
+    private static String DB_PATH = "/data/data/com.zareinaflameniano.sample/databases/";
 
     private static String DB_NAME = "Database.db";
 
@@ -37,7 +37,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      * @param context
      */
     public DatabaseHelper(Context context) {
-        super(context, DB_NAME, null, 2);
+        super(context, DB_NAME, null, 4);
         this.myContext = context;
     }
 
@@ -195,7 +195,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             while(cursor.moveToNext()){
                 AccommodationsModel spots = new AccommodationsModel(cursor.getInt(0), cursor.getInt(1),
                         cursor.getString(2),cursor.getString(3), cursor.getString(4),
-                        cursor.getString(5),cursor.getInt(6));
+                        cursor.getString(5),cursor.getInt(6), cursor.getString(7));
                 data.add(spots);
             }
             Log.i("DatabaseHelper", "" + data);
@@ -304,7 +304,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             while (cursor.moveToNext()) {
                 AccommodationsModel spots = new AccommodationsModel(cursor.getInt(0), cursor.getInt(1),
                         cursor.getString(2), cursor.getString(3), cursor.getString(4),
-                        cursor.getString(5), cursor.getInt(6));
+                        cursor.getString(5), cursor.getInt(6),cursor.getString(7));
                 data.add(spots);
             }
 
@@ -320,32 +320,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return data;
     }
 
-
-    public List<TownModel> getNotesWithMatches(String searchText){
-        SQLiteDatabase db = this.getWritableDatabase();
-        List<TownModel> data = new ArrayList<>();
-
-        Cursor cursor;
-
-        try{
-            //DITO SA QUERY, TINATRY NATIN I-RETRIEVE UNG NOTES NA UNG title AT description NILA NAGLALAMAN NUNG searchText
-            cursor = db.query("tblTowns", null," LIKE ? OR description LIKE ?",new String[]{"%"+ searchText + "%", "%"+ searchText + "%"},null, null,null);
-
-            while(cursor.moveToNext()){
-             TownModel note = new TownModel(cursor.getInt(0), cursor.getString(1)
-                       );
-                data.add(note);
-            }
-
-            Log.i("DatabaseHelper", "" + data);
-
-        }catch (Exception e){
-            Log.e("DatabaseHelper", "" + e.getLocalizedMessage());
-        }
-
-        return data;
-
-    }
     public void removeFavorite(int favID) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete("tblFavorites", "favID = ?", new String[]{String.valueOf(favID)});

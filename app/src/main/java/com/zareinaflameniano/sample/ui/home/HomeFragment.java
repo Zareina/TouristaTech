@@ -129,6 +129,8 @@ public class HomeFragment extends Fragment {
                         intent.putExtra("accName", item.accName);
                         intent.putExtra("accLocation", item.accLocation);
                         intent.putExtra("accImage", item.accImage);
+                        intent.putExtra("accPrice", item.accPrice);
+                        intent.putExtra("accDescription", item.accDescription);
                         startActivity(intent);
                     }
                 },

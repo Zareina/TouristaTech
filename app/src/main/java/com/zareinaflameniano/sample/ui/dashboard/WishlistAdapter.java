@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -46,7 +47,7 @@ public class WishlistAdapter extends RecyclerView.Adapter<WishlistAdapter.ViewHo
         private final TextView favName;
         private final ImageView favImage;
         private final CardView cardView;
-        private final ImageView btDelete;
+        private final ImageButton btDelete;
 
 
         public ViewHolder(View view, OnDeleteClickListener onDeleteClickListener) {

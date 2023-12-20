@@ -11,9 +11,10 @@ public class AccommodationsModel {
     public String accDescription;
     public String accImage;
     public int accFavorite;
+    public String accPrice;
 
 
-    public AccommodationsModel(int accID,int townID, String accName, String accLocation, String accDescription, String accImage, int accFavorite){
+    public AccommodationsModel(int accID,int townID, String accName, String accLocation, String accDescription, String accImage, int accFavorite,String accPrice){
         this.accID = accID;
         this.townID = townID;
         this.accName = accName;
@@ -21,6 +22,8 @@ public class AccommodationsModel {
         this.accDescription = accDescription;
         this.accImage = accImage;
         this.accFavorite = accFavorite;
+        this.accPrice = accPrice;
+
 
     }
     @NonNull
