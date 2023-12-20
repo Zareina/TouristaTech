@@ -29,7 +29,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="2dp"
                 android:text="TextView"
-                android:textSize="26sp"
+                android:textSize="30sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -47,7 +47,7 @@
                 android:layout_marginBottom="3dp"
                 android:text="TextView"
                 android:textColor="#3949AB"
-                android:textSize="16sp"
+                android:textSize="24sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -58,10 +58,30 @@
                 android:text="TextView"
                 android:textSize="14sp" />
 
+            <Button
+                android:id="@+id/btBook"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="50dp"
+                android:layout_marginBottom="8dp"
+                android:backgroundTint="#3949AB"
+                android:text="@string/book"
+                android:textSize="12sp" />
+
+            <Button
+                android:id="@+id/btDetails"
+                android:layout_width="wrap_content"
+                android:layout_height="33dp"
+                android:layout_gravity="center"
+                android:background="@android:color/transparent"
+                android:text="See Details"
+                android:textColor="#C80F0F"
+                android:visibility="invisible" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_marginTop="10dp"
                 android:orientation="horizontal">
 
                 <Button
@@ -81,27 +101,6 @@
                     android:backgroundTint="#3949AB"
                     android:text="@string/checkout" />
             </LinearLayout>
-
-            <Button
-                android:id="@+id/btBook"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="50dp"
-                android:layout_marginBottom="8dp"
-                android:backgroundTint="#3949AB"
-                android:text="@string/book"
-                android:textSize="12sp" />
-
-            <Button
-                android:id="@+id/btDetails"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:background="@android:color/transparent"
-                android:text="See Details"
-                android:textColor="#C80F0F"
-                android:visibility="invisible" />
 
         </LinearLayout>
 

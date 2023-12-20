@@ -92,26 +92,21 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-                // No changes needed here
             }
         });
 
-        // Set up the initial state of the UI
         updateRecyclerView(townList.get(0).getTownID());
 
         return root;
     }
 
-    // Method to filter accommodations based on search string
     private void filterAccommodationsList(String searchString) {
         DatabaseHelper db = new DatabaseHelper(getContext());
         List<AccommodationsModel> filteredList = db.searchAccommodations(currentSelectedTownID, searchString);
 
-        // Update the data in the existing adapter
         customAdapter.updateData(filteredList);
     }
 
-    // Method to update the RecyclerView based on the selected town
     private void updateRecyclerView(long selectedTownID) {
         DatabaseHelper db = new DatabaseHelper(getContext());
         List<AccommodationsModel> accommodationsList = db.getAccommodationsByTownID(selectedTownID);
